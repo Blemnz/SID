@@ -36,6 +36,10 @@ Route::middleware(admin::class)->group(function () {
     Route::post('/service/create',[serviceController::class, 'store']);
     //sid
     Route::get('/admin/sid',[sidController::class, 'show']);
+    Route::delete('/sid/delete/{id}',[sidController::class, 'destroy']);
+    Route::get('/admin/sid/{id}/validation',[sidController::class, 'edit']);
+    Route::put('/sid/{id}/validation',[sidController::class, 'update']);
+    Route::get('admin/sid/validate',[sidController::class, 'create']);
 });
 
 Route::get('/login',[AdminController::class, 'login']);

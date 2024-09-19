@@ -14,7 +14,7 @@ class terminatingController extends Controller
      */
     public function index()
     {
-        $data = terminating::all();
+        $data = terminating::paginate(5);
         return view('terminating',[
             'tittle' => 'terminating',
             'data' => $data

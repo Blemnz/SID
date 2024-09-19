@@ -15,7 +15,7 @@ class originatingController extends Controller
     public function index()
     {
 
-        $data = originating::all();
+        $data = originating::paginate(5);
         return view('originating',[
             'tittle' => 'originating',
             'data' => $data

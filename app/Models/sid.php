@@ -10,12 +10,16 @@ class sid extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id',
         'originating',
         'terminating',
         'service',
-        'antrian',
+        'register',
         'bulan',
         'tahun',
+        'status'
+    ];
+
+    protected $casts = [
+        'id' => 'string'
     ];
 }

@@ -16,29 +16,31 @@
     </div>
 
     @include('massage.massageError')
-    <button class="btn btn-success"><a style="text-decoration: none; color:white;" href="{{ url('admin/service/create') }}">&plus; Tambah Service</a></button>
     <div class="table-responsive">
       <table class="table table-striped">
         <thead>
           <tr>
+            <th scope="col">#</th>
+            <th scope="col">SID</th>
+            <th scope="col">Register</th>
+            <th scope="col">Originating</th>
+            <th scope="col">Terminating</th>
             <th scope="col">Service</th>
-            <th scope="col">Kode</th>
-            <th scope="col">Action</th>
+            <th scope="col">Bulan</th>
+            <th scope="col">Tahun</th>
           </tr>
         </thead>
         <tbody>
             @foreach ($data as $item)
             <tr>
-                <td>{{ $item->name }}</td>
-                <td>{{ $item->kode }}</td>
-                <td>
-                    <a href="{{ url('admin/service/'.$item->id.'/edit') }}" class="btn btn-primary"> <i data-feather="edit"></i></a>
-                    <form class="d-inline" onsubmit="return confirm('Yakin akan menghapus data?')"  action="{{ url('service/delete/'.$item->id) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger"><i data-feather="x-square"></i></button>
-                    </form>
-                </td>
+                <td>{{ $loop->iteration }}</td>
+                <td>{{ strVal($item->id) }}</td>
+                <td>{{ $item->register }}</td>
+                <td>{{ $item->originating }}</td>
+                <td>{{ $item->terminating }}</td>
+                <td>{{ $item->service }}</td>
+                <td>{{ $item->bulan }}</td>
+                <td>{{ $item->tahun }}</td>
             </tr>
             @endforeach
         </tbody>

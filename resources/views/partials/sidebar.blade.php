@@ -16,38 +16,66 @@
               Dashboard
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2" href="{{ url('/admin/sid') }}">
-              <svg class="bi">
-                <use xlink:href="#file-earmark" />
-              </svg>
-              SID
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2" href="{{ url('/admin/originating') }}">
-              <svg class="bi">
-                <use xlink:href="#file-earmark" />
-              </svg>
-              Originating
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2" href="{{ url('/admin/terminating') }}">
-              <svg class="bi">
-                <use xlink:href="#file-earmark" />
-              </svg>
-              Terminating
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2" href="{{ url('/admin/service') }}">
-              <svg class="bi">
-                <use xlink:href="#file-earmark" />
-              </svg>
-              Service
-            </a>
-          </li>
+          <div class="dropdown">
+            <button class="nav-link d-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <svg class="bi">
+                    <use xlink:href="#file-earmark" />
+                  </svg>
+                SID
+            </button>
+            <ul class="dropdown-menu">
+              <li>
+                <a class="nav-link d-flex align-items-center gap-2" href="{{ url('/admin/sid') }}">
+                    <svg class="bi">
+                      <use xlink:href="#file-earmark" />
+                    </svg>
+                    Pending
+                  </a>
+              </li>
+              <li>
+                <a class="nav-link d-flex align-items-center gap-2" href="{{ url('/admin/sid/validate') }}">
+                    <svg class="bi">
+                      <use xlink:href="#file-earmark" />
+                    </svg>
+                    Validate
+                  </a>
+              </li>
+            </ul>
+          </div>
+          <div class="dropdown">
+            <button class="nav-link d-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <svg class="bi">
+                    <use xlink:href="#file-earmark" />
+                  </svg>
+                Data
+            </button>
+            <ul class="dropdown-menu">
+              <li>
+                <a class="nav-link d-flex align-items-center gap-2" href="{{ url('/admin/originating') }}">
+                    <svg class="bi">
+                      <use xlink:href="#file-earmark" />
+                    </svg>
+                    Originating
+                  </a>
+              </li>
+              <li>
+                <a class="nav-link d-flex align-items-center gap-2" href="{{ url('/admin/terminating') }}">
+                    <svg class="bi">
+                      <use xlink:href="#file-earmark" />
+                    </svg>
+                    Terminating
+                  </a>
+              </li>
+              <li>
+                <a class="nav-link d-flex align-items-center gap-2" href="{{ url('/admin/service') }}">
+                    <svg class="bi">
+                      <use xlink:href="#file-earmark" />
+                    </svg>
+                    Service
+                  </a>
+              </li>
+            </ul>
+          </div>
 
         <hr class="my-3">
 

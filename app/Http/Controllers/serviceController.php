@@ -14,7 +14,7 @@ class serviceController extends Controller
      */
     public function index()
     {
-        $data = service::all();
+        $data = service::paginate(5);
         return view('service',[
             'tittle' => 'Service',
             'data' => $data

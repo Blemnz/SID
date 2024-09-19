@@ -22,7 +22,7 @@
           <tr>
             <th scope="col">#</th>
             <th scope="col">SID</th>
-            <th scope="col">Antrian</th>
+            <th scope="col">Register</th>
             <th scope="col">Originating</th>
             <th scope="col">Terminating</th>
             <th scope="col">Service</th>
@@ -36,15 +36,15 @@
             <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ strVal($item->id) }}</td>
-                <td>{{ $item->antrian }}</td>
+                <td>{{ $item->register }}</td>
                 <td>{{ $item->originating }}</td>
                 <td>{{ $item->terminating }}</td>
                 <td>{{ $item->service }}</td>
                 <td>{{ $item->bulan }}</td>
                 <td>{{ $item->tahun }}</td>
                 <td>
-                    <a href="{{ url('admin/terminating/'.$item->id.'/edit') }}" class="btn btn-primary"> <i data-feather="edit"></i></a>
-                    <form class="d-inline" onsubmit="return confirm('Yakin akan menghapus data?')"  action="{{ url('terminating/delete/'.$item->id) }}" method="POST">
+                    <a href="{{ url('admin/sid/'.$item->id.'/validation') }}" class="btn btn-primary"> <i data-feather="check"></i></a>
+                    <form class="d-inline" onsubmit="return confirm('Yakin akan menghapus data?')"  action="{{ url('sid/delete/'.$item->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger"><i data-feather="x-square"></i></button>
@@ -54,6 +54,7 @@
             @endforeach
         </tbody>
       </table>
+      {{ $data->links() }}
     </div>
   </main>
 @endsection

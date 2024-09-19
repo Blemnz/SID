@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('sids', function (Blueprint $table) {
             $table->string('id');
-            $table->integer('antrian');
+            $table->integer('register');
             $table->string('originating');
             $table->string('terminating');
             $table->string('service');
             $table->string('bulan');
             $table->string('tahun');
-
+            $table->enum('status', ['pending', 'selesai'])->default('pending');
             $table->timestamps();
         });
     }

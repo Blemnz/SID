@@ -36,7 +36,11 @@ class sidController extends Controller
      */
     public function create()
     {
-        //
+        $data = sid::where('status', 'selesai')->paginate(5);
+        return view('sidValidate',[
+            'tittle' => 'Sid',
+            'data' => $data
+        ]);
     }
 
     /**
@@ -55,8 +59,15 @@ class sidController extends Controller
         $kodeTerminating = terminating::where('name', $request->terminating)->select('kode')->first();
         $kodeService = service::where('name', $request->service)->select('kode')->first();
         $kodeTahun = substr($request->tahun, -2);
-        $tanggal = date('d');
-        $id = $kodeOriginating->kode . $kodeTerminating->kode  . $kodeService->kode .$tanggal. $request->bulan . $kodeTahun;
+        $bulanRegister = Carbon::now()->month;
+        $tahunRegister = Carbon::now()->year;
+        $register = sid::whereMonth('created_at', $bulanRegister)->whereYear('created_at', $tahunRegister)->count();
+        if (!$register) {
+            $register = 1;
+        } else {
+            $register += 1;
+        }
+        $id = $kodeOriginating->kode . $kodeTerminating->kode  . $kodeService->kode .$register. $request->bulan . $kodeTahun;
         $bulan = Carbon::create()->month(intval($request->bulan))->format('F');
         try {
             DB::beginTransaction();
@@ -65,7 +76,7 @@ class sidController extends Controller
             $sid->originating = $request->originating;
             $sid->terminating = $request->terminating;
             $sid->service = $request->service;
-            $sid->antrian = $tanggal;
+            $sid->register = $register;
             $sid->bulan = $bulan;
             $sid->tahun = $request->tahun;
             $sid->save();
@@ -82,7 +93,7 @@ class sidController extends Controller
      */
     public function show()
     {
-        $data = sid::all();
+        $data = sid::where('status', 'pending')->paginate(5);
         return view('sidDisplay',[
             'tittle' => 'Sid',
             'data' => $data
@@ -94,7 +105,11 @@ class sidController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = sid::where('id', $id)->first();
+        return view('sidValidation', [
+            'tittle' => 'Validation Sid',
+            'data' => $data
+        ]);
     }
 
     /**
@@ -102,7 +117,19 @@ class sidController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $data = $request->validate([
+            'status'=> 'required'
+        ]);
+
+        try {
+            DB::beginTransaction();
+            sid::where('id',$id)->update($data);
+            DB::commit();
+            return redirect('/admin/sid')->with('success', 'Berhasil validasi data');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect('/admin/sid')->withErrors('Gagal Validasi data');
+        }
     }
 
     /**
@@ -110,6 +137,7 @@ class sidController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        sid::where('id',$id)->delete();
+        return redirect('admin/sid')->with('success', 'berhasil hapus data');
     }
 }
